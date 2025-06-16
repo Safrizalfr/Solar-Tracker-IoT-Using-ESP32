@@ -777,32 +777,35 @@
             });
         }
 
-        // Update sensor data from Firebase
+        // Update sensor data from Firebase - Disesuaikan dengan format JSON
         function updateSensorData(data) {
-            // Power measurements
+            // Power measurements - disesuaikan dengan nama field yang benar
             if (data.voltage_1 !== undefined) document.getElementById('voltage1').textContent = data.voltage_1.toFixed(2) + ' V';
-            if (data.current_1 !== undefined) document.getElementById('current1').textContent = data.current_1.toFixed(1) + ' mA';
-            if (data.power_1 !== undefined) document.getElementById('power1').textContent = data.power_1.toFixed(1) + ' mW';
+            if (data.current_ma_1 !== undefined) document.getElementById('current1').textContent = data.current_ma_1.toFixed(1) + ' mA';
+            if (data.power_mw_1 !== undefined) document.getElementById('power1').textContent = data.power_mw_1.toFixed(1) + ' mW';
             if (data.voltage_2 !== undefined) document.getElementById('voltage2').textContent = data.voltage_2.toFixed(2) + ' V';
-            if (data.current_2 !== undefined) document.getElementById('current2').textContent = data.current_2.toFixed(1) + ' mA';
-            if (data.power_2 !== undefined) document.getElementById('power2').textContent = data.power_2.toFixed(1) + ' mW';
-            if (data.total_power !== undefined) document.getElementById('totalPower').textContent = data.total_power.toFixed(1) + ' mW';
-
+            if (data.current_ma_2 !== undefined) document.getElementById('current2').textContent = data.current_ma_2.toFixed(1) + ' mA';
+            if (data.power_mw_2 !== undefined) document.getElementById('power2').textContent = data.power_mw_2.toFixed(1) + ' mW';
+            if (data.total_power_mw !== undefined) document.getElementById('totalPower').textContent = data.total_power_mw.toFixed(1) + ' mW';
+            
             // Environmental data
             if (data.temperature !== undefined) document.getElementById('temperature').textContent = data.temperature.toFixed(1) + '°C';
             if (data.humidity !== undefined) document.getElementById('humidity').textContent = data.humidity.toFixed(1) + '%';
             if (data.light_lux !== undefined) document.getElementById('lightLux').textContent = data.light_lux.toLocaleString() + ' lux';
-            if (data.avg_light_lux !== undefined) document.getElementById('avgLightLux').textContent = data.avg_light_lux.toLocaleString() + ' lux';
-
-            // Averages
-            if (data.avg_voltage_1 !== undefined) document.getElementById('avgVoltage1').textContent = data.avg_voltage_1.toFixed(2) + ' V';
-            if (data.avg_power_1 !== undefined) document.getElementById('avgPower1').textContent = data.avg_power_1.toFixed(1) + ' mW';
-            if (data.avg_voltage_2 !== undefined) document.getElementById('avgVoltage2').textContent = data.avg_voltage_2.toFixed(2) + ' V';
-            if (data.avg_power_2 !== undefined) document.getElementById('avgPower2').textContent = data.avg_power_2.toFixed(1) + ' mW';
-            if (data.avg_total_power !== undefined) document.getElementById('avgTotalPower').textContent = data.avg_total_power.toFixed(1) + ' mW';
-
-            // Update last update timestamp
+            
+            // Tracking data - menambahkan data yang ada di JSON tapi tidak ada di kode 2 asli
+            if (data.auto_mode !== undefined) document.getElementById('trackingMode').textContent = data.auto_mode ? 'AUTO' : 'MANUAL';
+            if (data.ldr_left !== undefined) document.getElementById('ldrLeft').textContent = data.ldr_left || 0;
+            if (data.ldr_right !== undefined) document.getElementById('ldrRight').textContent = data.ldr_right || 0;
+            if (data.ldr_top !== undefined) document.getElementById('ldrTop').textContent = data.ldr_top || 0;
+            if (data.ldr_bottom !== undefined) document.getElementById('ldrBottom').textContent = data.ldr_bottom || 0;
+            if (data.servo_x !== undefined) document.getElementById('servoX').textContent = (data.servo_x || 90) + '°';
+            if (data.servo_y !== undefined) document.getElementById('servoY').textContent = (data.servo_y || 90) + '°';
+            
+            // Update timestamps
+            if (data.timestamp !== undefined) document.getElementById('lastDataTime').textContent = data.timestamp || 'Unknown';
             document.getElementById('lastUpdate').textContent = new Date().toLocaleString();
+            document.getElementById('lastUpdateTime').textContent = new Date().toLocaleTimeString();
         }
 
         // Update system status from Firebase
