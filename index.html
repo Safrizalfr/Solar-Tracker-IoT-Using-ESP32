@@ -628,7 +628,7 @@
 
         // Start listening to Firebase data
         function startDataListener() {
-            const dataRef = ref(database, 'solar_tracker_data');
+            const dataRef = ref(database, 'solar_tracker/data');
             const recentDataQuery = query(dataRef, orderByKey(), limitToLast(1));
             
             onValue(recentDataQuery, (snapshot) => {
